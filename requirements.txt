@@ -1,0 +1,5 @@
+requests
+numpy
+pandas==2.1.2
+psycopg2-binary
+nba_api
