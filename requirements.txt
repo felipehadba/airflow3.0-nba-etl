@@ -1,5 +1,5 @@
-requests
-numpy
+requests>=2.31.0
+numpy>=1.24.0
 pandas==2.1.2
-psycopg2-binary
-nba_api
+psycopg2-binary>=2.9.9
+nba_api>=1.2.1
