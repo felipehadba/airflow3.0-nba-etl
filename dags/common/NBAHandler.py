@@ -1,5 +1,5 @@
 import time
-from nba_api.stats.endpoints import TeamGameLogs, PlayerGameLogs
+from nba_api.stats.endpoints import TeamGameLogs, PlayerGameLogs, DraftHistory
 from nba_api.stats.static import teams, players
 import pandas as pd
 
@@ -59,3 +59,21 @@ class NBAHandler:
             except Exception:
                 time.sleep(1)
         raise 
+
+    def get_draft_history(self, season):
+        """
+        Retrieve draft history for a given NBA season.
+
+        Args:
+            season (str): NBA season (e.g., '2024-25').
+
+        Returns:
+            pd.DataFrame: DataFrame containing draft history for the specified season.
+        """
+        for _ in range(3):
+            try:
+                resp = DraftHistory(league_id="00", season_year_nullable=season)
+                return resp.get_data_frames()[0]
+            except Exception:
+                time.sleep(1)
+        raise
