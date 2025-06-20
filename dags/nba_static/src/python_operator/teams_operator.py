@@ -1,6 +1,4 @@
-from typing import Dict, Any
-import pandas as pd
-from nba_api.stats.static import teams
+from common.NBAHandler import NBAHandler
 from common.PostgresHandler import PostgresHandler
 from nba_static.conf.variables import DB_SCHEMA, TEAMS_TABLE
 
@@ -9,30 +7,20 @@ def extract_teams(**context) -> None:
     """
     Extract NBA teams data and load it into the database.
     """
-    # Initialize database handler
     handler = PostgresHandler()
-    
+    nba_handler = NBAHandler()
     try:
-        # Create table if not exists
         handler.create_table(
             table_name=TEAMS_TABLE['name'],
             columns=TEAMS_TABLE['columns'],
             schema=DB_SCHEMA
         )
-        
-        # Get all teams
-        teams_list = teams.get_teams()
-        
-        # Convert to DataFrame
-        df = pd.DataFrame(teams_list)
-        
-        # Insert data
+        df = nba_handler.get_teams()
         handler.insert_data(
             df=df,
             table_name=TEAMS_TABLE['name'],
             schema=DB_SCHEMA,
-            if_exists='replace'  # Replace existing data
+            if_exists='replace'
         )
-        
     finally:
         handler.close_connection() 
