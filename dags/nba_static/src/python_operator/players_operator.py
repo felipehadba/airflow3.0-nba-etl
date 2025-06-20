@@ -1,6 +1,6 @@
 from typing import Dict, Any
 import pandas as pd
-from nba_api.stats.static import players
+from common.NBAHandler import NBAHandler
 from common.PostgresHandler import PostgresHandler
 from nba_static.conf.variables import DB_SCHEMA, PLAYERS_TABLE
 
@@ -11,6 +11,7 @@ def extract_players(**context) -> None:
     """
     # Initialize database handler
     handler = PostgresHandler()
+    nba_handler = NBAHandler()
     
     try:
         # Create table if not exists
@@ -21,10 +22,7 @@ def extract_players(**context) -> None:
         )
         
         # Get all players
-        players_list = players.get_players()
-        
-        # Convert to DataFrame
-        df = pd.DataFrame(players_list)
+        df = nba_handler.get_players()
         
         # Insert data
         handler.insert_data(
