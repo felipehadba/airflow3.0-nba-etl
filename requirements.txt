@@ -3,3 +3,6 @@ numpy>=1.24.0
 pandas==2.1.2
 psycopg2-binary>=2.9.9
 nba_api>=1.2.1
+apache-airflow==3.0.2
+apache-airflow-providers-postgres
+SQLAlchemy

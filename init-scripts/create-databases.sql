@@ -1,1 +1,2 @@
 CREATE DATABASE data_bronze; 
+CREATE DATABASE metabase;
